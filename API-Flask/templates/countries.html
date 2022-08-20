@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block header %}
+    <h1>Enter Country's Name</h1>
+{% endblock %}
+{% block content %}
+{% if product %}
+    <form method="post">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="Country" value="{{country}}"/>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Show Covid History</button>
+    </form>
+ {% else %}
+    <h2>No country found</h2>
+ {% endif %}   
+{% endblock %}
+
+
+
+
+
+
+

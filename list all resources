@@ -1,0 +1,7 @@
+list all resources
+/products
+/cars
+/cats
+
+seeing the details of esach resources
+/products/<id>
