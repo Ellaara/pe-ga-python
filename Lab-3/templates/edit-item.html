@@ -6,11 +6,15 @@
 {% if item %}
     <form method="post">
         <div class="form-group">
-            <label>Item SKU</label>
+            <label>id</label>
+            <input type="text" name="id" value="{{item.id}}" />
+        </div>
+        <div class="form-group">
+            <label>SKU</label>
             <input type="text" name="sku" value="{{item.sku}}"/>
         </div>
         <div class="form-group">
-            <label>Item Name</label>
+            <label>Name</label>
             <input type="text" name="name" value="{{item.name}}"/>
         </div>
         <div class="form-group">
@@ -18,7 +22,7 @@
             <input type="text" name="description" value="{{item.description}}"/>
         </div>
         <div class="form-group">
-            <label>Purchase Date</label>
+            <label>Date</label>
             <input type="text"name="date" value="{{item.date}}"/>
         </div>
         <div class="form-group">
@@ -26,14 +30,14 @@
             <input type="text" name="quantity" value="{{item.quantity}}"/>
         </div>
         <div class="form-group">
-            <label>Cost Per Unit</label>
+            <label>Cost</label>
             <input type="text" name="cost" value="{{item.cost}}"/>
         </div>
         <div class="form-group">
-            <label>Reorder Level</label>
-            <input type="text" name="reorder" value="{{item.reorder}}"/>
+            <label>Reorder_Level</label>
+            <input type="text" name="reorder_level" value="{{item.reorder_level}}"/>
         </div>
-        <button type="submit" class="btn btn-primary">Save Item</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
  {% else %}
     <h2>No inventory item with that id found</h2>

@@ -15,7 +15,7 @@ def index():
 @app.route('/inventories')
 def get_inventories(): #list all the existing inventory from csv file
     inventory_list = pd.read_csv('inventories.csv')
-    return render_template('inventories.html', inventories=inventory_list.to_dict('records'))
+    return render_template('inventories.html', inventories = inventory_list.to_dict('records'))
 
 #route to add a new inventory item
 @app.route('/inventories/new', methods=['GET', 'POST'])
@@ -34,7 +34,7 @@ def add_new_inventory():
         item_date = request.form['date']
         item_quantity = request.form['quantity']
         item_cost = request.form['cost']
-        item_reorder_level = request.form['reorder']
+        item_reorder_level = request.form['reorder_level']
         new_inventory= {}
 
         new_item_id = inventory_list[len(inventory_list) - 1]['id'] + 1
@@ -46,7 +46,7 @@ def add_new_inventory():
         new_inventory['date'] = item_date
         new_inventory['quantity'] = item_quantity
         new_inventory['cost'] = item_cost
-        new_inventory['reorder'] = item_reorder_level
+        new_inventory['reorder_level'] = item_reorder_level
 
         inventory_list.append(new_inventory)
 
@@ -54,10 +54,10 @@ def add_new_inventory():
 
         df = pd.DataFrame(inventory_list).set_index('id') 
         df.to_csv('inventories.csv')
-        return redirect(url_for('get_inventory'))
+        return redirect(url_for('get_inventories'))
 
 #route to edit each inventory list
-@app.route('/items/<id>', methods=["GET", "PUT", "POST"])
+@app.route('/inventories/<id>', methods=["GET", "PUT", "POST"])
 def edit_item(id):
     #1. read the list of items from the csv file
     inventory_list = fetch_inventory_list()
@@ -81,7 +81,7 @@ def edit_item(id):
             'date': request.form['date'],
             'quantity': request.form['quantity'],
             'cost': request.form['cost'],
-            'reorder': request.form['reorder'],
+            'reorder_level': request.form['reorder_level'],
         }
         #update items list by replacing existing item with the updated one
         #again, search for the one with matching id
@@ -89,12 +89,12 @@ def edit_item(id):
         #write the changes to the file
         df = pd.DataFrame(inventory_list).set_index('id')
         df.to_csv('inventories.csv')
-        return redirect(url_for('get_inventory'))
+        return redirect(url_for('get_inventories'))
 
-@app.route('/items/<id>/delete', methods=['POST','DELETE'])
+@app.route('/inventories/<id>/delete', methods=['POST','DELETE'])
 def delete_item(id):
     delete_item(request.form['delete'])
-    return redirect(url_for('get_inventory'))
+    return redirect(url_for('get_inventories'))
 
 
 def fetch_inventory_list():
